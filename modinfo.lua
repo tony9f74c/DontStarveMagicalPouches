@@ -1,7 +1,7 @@
 name = "Magical Pouches"
 description = "Shrinks items to fit in your pocket!"
-author = "https://steamcommunity.com/profiles/76561198002269576"
-version = "1.35"
+author = "Tony" -- https://steamcommunity.com/profiles/76561198002269576
+version = "1.35b"
 forumthread = ""
 api_version = 10
 all_clients_require_mod = true
