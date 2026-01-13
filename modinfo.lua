@@ -1,7 +1,81 @@
-name = "Magical Pouches"
-description = "Shrinks items to fit in your pocket!"
+-- Localization
+
+local translation = {
+    en = {
+        name = "Magical Pouches",
+        description = "Shrinks items to fit in your pocket!",
+        tags = {"magical", "pouch", "portable", "container"},
+        tabs = {"Tools", "Survival", "Farm", "Science", "Structures", "Refine", "Magic"},
+        techs = {"None", "Science Machine", "Alchemy Engine", "Prestihatitator", "Shadow Manip.", "Broken APS", "Repaired APS"},
+        spoilage = {"Default", "25% longer", "50% longer", "75% longer", "None"},
+        enabled = "Enabled",
+        disabled = "Disabled",
+        slots = " slots",
+        recipeTab = {label = "Recipe Tab", hover = "The crafting tab on which the recipe is found."},
+        recipeTech = {label = "Recipe Tech", hover = "The research building required to see/craft the recipe."},
+        mpSize = {label = "MP Size", hover = "The size of the Magical Pouch."},
+        mpRope = {label = "MP Rope", hover = "The amount of Rope required to craft the Magical Pouch."},
+        mpWeb = {label = "MP Spider Web", hover = "The amount of Web required to craft the Magical Pouch."},
+        mpGems = {label = "MP Purple Gem", hover = "The amount of Purple Gems required to craft the Magical Pouch."},
+        impToggle = {label = "Toggle IMP", hover = "Enable/disable the Icy Magical Pouch"},
+        impSize = {label = "IMP Size", hover = "The size of the Icy Magical Pouch."},
+        impSpoilage = {label = "IMP Spoilage", hover = "The rate at which food spils in the Icy Magical Pouch."},
+        impRope = {label = "IMP Rope", hover = "The amount of Rope required to craft the Icy Magical Pouch."},
+        impWeb = {label = "IMP Spider Web", hover = "The amount of Web required to craft the Icy Magical Pouch."},
+        impGems = {label = "IMP Blue Gem", hover = "The amount of Blue Gems required to craft the Icy Magical Pouch."},
+        autoCollect = {label = "Enable Auto-Collect", hover = "Enable/disable the auto-collect feature for all pouches."},
+        collectInterval = {label = "Collect Interval", hover = "The interval in seconds at which the pouches collect loot."},
+        xPos = {label = "UI Horizontal Position", hover = "The horizontal position of the pouch window."},
+        yPos = {label = "UI Vertical Position", hover = "The vertical position of the pouch window."},
+        language = {label = "Language", hover = "Matches the game's language."},
+    },
+    zh = {
+        name = "魔法袋子",
+        description = "缩小物品以放入口袋！",
+        tags = {"魔法", "袋子", "便携", "容器"},
+        tabs = {"工具", "生存", "农场", "科学", "结构", "精炼", "魔法"},
+        techs = {"无", "科学机器", "炼金引擎", "预言家帽子", "暗影操控器", "损坏的APS", "修复的APS"},
+        spoilage = {"默认", "延长25%", "延长50%", "延长75%", "无"},
+        enabled = "启用",
+        disabled = "禁用",
+        slots = " 格",
+        recipeTab = {label = "配方标签", hover = "配方所在的制作标签。"},
+        recipeTech = {label = "配方科技", hover = "查看/制作配方所需的研究建筑。"},
+        mpSize = {label = "魔法袋子大小", hover = "魔法袋子的大小。"},
+        mpRope = {label = "魔法袋子绳子", hover = "制作魔法袋子所需的绳子数量。"},
+        mpWeb = {label = "魔法袋子蜘蛛网", hover = "制作魔法袋子所需的蜘蛛网数量。"},
+        mpGems = {label = "魔法袋子紫宝石", hover = "制作魔法袋子所需的紫宝石数量。"},
+        impToggle = {label = "切换冰魔法袋子", hover = "启用/禁用冰魔法袋子"},
+        impSize = {label = "冰魔法袋子大小", hover = "冰魔法袋子的大小。"},
+        impSpoilage = {label = "冰魔法袋子腐坏", hover = "食物在冰魔法袋子中腐坏的速度。"},
+        impRope = {label = "冰魔法袋子绳子", hover = "制作冰魔法袋子所需的绳子数量。"},
+        impWeb = {label = "冰魔法袋子蜘蛛网", hover = "制作冰魔法袋子所需的蜘蛛网数量。"},
+        impGems = {label = "冰魔法袋子蓝宝石", hover = "制作冰魔法袋子所需的蓝宝石数量。"},
+        autoCollect = {label = "启用自动收集", hover = "启用/禁用所有袋子的自动收集功能。"},
+        collectInterval = {label = "收集间隔", hover = "袋子收集战利品的间隔时间（秒）。"},
+        xPos = {label = "UI水平位置", hover = "袋子窗口的水平位置。"},
+        yPos = {label = "UI垂直位置", hover = "袋子窗口的垂直位置。"},
+        language = {label = "语言", hover = "匹配游戏语言。"},
+    },
+}
+
+local L = locale
+local lang_key = "en"
+if L then
+    if L == "zh" or L == "zht" or L == "zhr" then
+        lang_key = "zh"
+    elseif translation[L] then
+        lang_key = L
+    end
+end
+local S = translation[lang_key] or translation.en
+
+-- Mod info
+
+name = S.name
+description = S.description
 author = "Tony" -- https://steamcommunity.com/profiles/76561198002269576
-version = "1.35b"
+version = "260113"
 forumthread = ""
 api_version = 10
 all_clients_require_mod = true
@@ -9,22 +83,22 @@ client_only_mod = false
 dst_compatible = true
 icon_atlas = "modicon.xml"
 icon = "modicon.tex"
-server_filter_tags = {"magical", "pouch", "portable", "container"}
+server_filter_tags = S.tags
 priority = 50
 
 local function setTab(k)
-    local name = {"Tools", "Survival", "Farm", "Science", "Structures", "Refine", "Magic"}
+    local name = S.tabs
     return {description = ""..name[k].."", data = k}
 end
 
 local function setTech(k)
-    local name = {"None", "Science Machine", "Alchemy Engine", "Prestihatitator", "Shadow Manip.", "Broken APS", "Repaired APS"}
+    local name = S.techs
     return {description = ""..name[k].."", data = k}
 end
 
 local function setSize(k)
     local slots = {4, 9, 16, 25, 100}
-    return {description = ""..slots[k].." slots", data = k}
+    return {description = ""..slots[k]..S.slots, data = k}
 end
 
 local function setCount(k)
@@ -32,7 +106,7 @@ local function setCount(k)
 end
 
 local function setSpoilage(k)
-    local desc = {"Default", "25% longer", "50% longer", "75% longer", "None"}
+    local desc = S.spoilage
     local val = {.5, .37, .25, .12, .001}
     return {description = ""..desc[k].."", data = val[k]}
 end
@@ -42,26 +116,32 @@ local tech = {} for k=1,7,1 do tech[k] = setTech(k) end
 local size = {} for k=1,5,1 do size[k] = setSize(k) end
 local ingredient = {} for k=1,20,1 do ingredient[k] = setCount(k) end
 local count = {} for k=1,11,1 do count[k] = setCount(k-6) end
-local toggle = {{description = "Enabled", data = true}, {description = "Disabled", data = false}}
+local toggle = {{description = S.enabled, data = true}, {description = S.disabled, data = false}}
 local interval = {} for k=1,10,1 do interval[k] = setCount(k/10) end
 local position = {} for k=1,41,1 do position[k] = setCount(k*25-525) end
 local spoilage = {} for k=1,5,1 do spoilage[k] = setSpoilage(k) end
 
+-- Store detected locale for modmain.lua (always uses game language)
+local localeOptions = {
+    {description = lang_key == "zh" and "中文" or "English", data = lang_key},
+}
+
 configuration_options = {
-    {name = "cfgRecipeTab", label = "Recipe Tab", options = tab, default = 1, hover = "The crafting tab on which the recipe is found."},
-    {name = "cfgRecipeTech", label = "Recipe Tech", options = tech, default = 5, hover = "The research building required to see/craft the recipe."},
-    {name = "cfgMPSize", label = "MP Size", options = size, default = 2, hover = "The size of the Magical Pouch."},
-    {name = "cfgMPRope", label = "MP Rope", options = ingredient, default = 1, hover = "The amount of Rope required to craft the Magical Pouch."},
-    {name = "cfgMPWeb", label = "MP Spider Web", options = ingredient, default = 15, hover = "The amount of Web required to craft the Magical Pouch."},
-    {name = "cfgMPGems", label = "MP Purple Gem", options = ingredient, default = 5, hover = "The amount of Purple Gems required to craft the Magical Pouch."},
-    {name = "cfgIMPRecipeToggle", label = "Toggle IMP", options = toggle, default = true, hover = "Enable/disable the Icy Magical Pouch"},
-    {name = "cfgIMPSize", label = "IMP Size", options = size, default = 1, hover = "The size of the Icy Magical Pouch."},
-    {name = "cfgIMPPerishMult", label = "IMP Spoilage", options = spoilage, default = .5, hover = "The rate at which food spils in the Icy Magical Pouch."},
-    {name = "cfgIMPRope", label = "IMP Rope", options = ingredient, default = 1, hover = "The amount of Rope required to craft the Icy Magical Pouch."},
-    {name = "cfgIMPWeb", label = "IMP Spider Web", options = ingredient, default = 15, hover = "The amount of Web required to craft the Icy Magical Pouch."},
-    {name = "cfgIMPGems", label = "IMP Blue Gem", options = ingredient, default = 10, hover = "The amount of Blue Gems required to craft the Icy Magical Pouch."},
-    {name = "cfgAutoCollectToggle", label = "Enable Auto-Collect", options = toggle, default = false, hover = "Enable/disable the auto-collect feature for all pouches."},
-    {name = "cfgAutoCollectInterval", label = "Collect Interval", options = interval, default = .3, hover = "The interval in seconds at which the pouches collect loot."},
-    {name = "cfgXPos", label = "UI Horizontal Position", options = position, default = 0, hover = "The horizontal position of the pouch window."},
-    {name = "cfgYPos", label = "UI Vertical Position", options = position, default = 100, hover = "The vertical position of the pouch window."},
+    {name = "cfgLocale", label = S.language.label, options = localeOptions, default = lang_key, hover = S.language.hover},
+    {name = "cfgRecipeTab", label = S.recipeTab.label, options = tab, default = 1, hover = S.recipeTab.hover},
+    {name = "cfgRecipeTech", label = S.recipeTech.label, options = tech, default = 5, hover = S.recipeTech.hover},
+    {name = "cfgMPSize", label = S.mpSize.label, options = size, default = 2, hover = S.mpSize.hover},
+    {name = "cfgMPRope", label = S.mpRope.label, options = ingredient, default = 1, hover = S.mpRope.hover},
+    {name = "cfgMPWeb", label = S.mpWeb.label, options = ingredient, default = 15, hover = S.mpWeb.hover},
+    {name = "cfgMPGems", label = S.mpGems.label, options = ingredient, default = 5, hover = S.mpGems.hover},
+    {name = "cfgIMPRecipeToggle", label = S.impToggle.label, options = toggle, default = true, hover = S.impToggle.hover},
+    {name = "cfgIMPSize", label = S.impSize.label, options = size, default = 1, hover = S.impSize.hover},
+    {name = "cfgIMPPerishMult", label = S.impSpoilage.label, options = spoilage, default = .5, hover = S.impSpoilage.hover},
+    {name = "cfgIMPRope", label = S.impRope.label, options = ingredient, default = 1, hover = S.impRope.hover},
+    {name = "cfgIMPWeb", label = S.impWeb.label, options = ingredient, default = 15, hover = S.impWeb.hover},
+    {name = "cfgIMPGems", label = S.impGems.label, options = ingredient, default = 10, hover = S.impGems.hover},
+    {name = "cfgAutoCollectToggle", label = S.autoCollect.label, options = toggle, default = false, hover = S.autoCollect.hover},
+    {name = "cfgAutoCollectInterval", label = S.collectInterval.label, options = interval, default = .3, hover = S.collectInterval.hover},
+    {name = "cfgXPos", label = S.xPos.label, options = position, default = 0, hover = S.xPos.hover},
+    {name = "cfgYPos", label = S.yPos.label, options = position, default = 100, hover = S.yPos.hover},
 }

@@ -40,6 +40,13 @@ local getConfig = GetModConfigData
 local containers = GLOBAL.require "containers"
 local FindEntity = GLOBAL.FindEntity
 
+-- Get locale from configuration (set in modinfo.lua based on game language)
+local localeSetting = getConfig("cfgLocale")
+local isChinese = (localeSetting == "zh")
+local toggleText = isChinese and "切换" or "Toggle"
+local onText = isChinese and "开启" or "ON"
+local offText = isChinese and "关闭" or "OFF"
+
 local acEnabled = getConfig("cfgAutoCollectToggle")
 -- local acEnabled = false
 
@@ -50,12 +57,21 @@ AddMinimapAtlas("minimap/icepouch.xml")
 
 -- STRINGS --
 
-STRINGS.NAMES.MAGICPOUCH = "Magical Pouch"
-STRINGS.RECIPE_DESC.MAGICPOUCH = "Shrinks items to fit in your pocket!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.MAGICPOUCH = "Shrinks items to fit in your pocket!"
-STRINGS.NAMES.ICEPOUCH = "Icy Magical Pouch"
-STRINGS.RECIPE_DESC.ICEPOUCH = "A Magical Pouch that can keep food fresh forever!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ICEPOUCH = "A Magical Pouch that can keep food fresh forever!"
+if isChinese then
+    STRINGS.NAMES.MAGICPOUCH = "魔法袋子"
+    STRINGS.RECIPE_DESC.MAGICPOUCH = "缩小物品以放入口袋！"
+    STRINGS.CHARACTERS.GENERIC.DESCRIBE.MAGICPOUCH = "缩小物品以放入口袋！"
+    STRINGS.NAMES.ICEPOUCH = "冰魔法袋子"
+    STRINGS.RECIPE_DESC.ICEPOUCH = "可以让食物永远保持新鲜的魔法袋子！"
+    STRINGS.CHARACTERS.GENERIC.DESCRIBE.ICEPOUCH = "可以让食物永远保持新鲜的魔法袋子！"
+else
+    STRINGS.NAMES.MAGICPOUCH = "Magical Pouch"
+    STRINGS.RECIPE_DESC.MAGICPOUCH = "Shrinks items to fit in your pocket!"
+    STRINGS.CHARACTERS.GENERIC.DESCRIBE.MAGICPOUCH = "Shrinks items to fit in your pocket!"
+    STRINGS.NAMES.ICEPOUCH = "Icy Magical Pouch"
+    STRINGS.RECIPE_DESC.ICEPOUCH = "A Magical Pouch that can keep food fresh forever!"
+    STRINGS.CHARACTERS.GENERIC.DESCRIBE.ICEPOUCH = "A Magical Pouch that can keep food fresh forever!"
+end
 
 -- RECIPES --
 
@@ -137,7 +153,7 @@ local function createPouch(num)
             pos = Vector3(getConfig("cfgXPos"),getConfig("cfgYPos"),0),
             side_align_tip = 160,
             buttoninfo = acEnabled and {
-                text = "Toggle",
+                text = toggleText,
                 position = Vector3(pouch.buttonx, pouch.buttony, 0),
             } or nil
         },
@@ -209,11 +225,11 @@ if acEnabled then
         if not inst.autoCollectToggle then
             inst:DoPeriodicTask(interval, searchForItem)
             inst.autoCollectToggle = true
-            player.components.talker:Say("ON")
+            player.components.talker:Say(onText)
         else
             inst:CancelAllPendingTasks()
             inst.autoCollectToggle = false
-            player.components.talker:Say("OFF")
+            player.components.talker:Say(offText)
         end
     end
 
