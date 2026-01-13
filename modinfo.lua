@@ -25,6 +25,12 @@ local translation = {
         impGems = {label = "IMP Blue Gem", hover = "The amount of Blue Gems required to craft the Icy Magical Pouch."},
         autoCollect = {label = "Enable Auto-Collect", hover = "Enable/disable the auto-collect feature for all pouches."},
         collectInterval = {label = "Collect Interval", hover = "The interval in seconds at which the pouches collect loot."},
+        sanityDrain = {label = "Sanity Drain on Auto-Collect", hover = "Enable/disable sanity drain when pouches auto-collect items."},
+        sanityDrainCount = {label = "Items per sanity point", hover = "The number of items to collect before draining one sanity point."},
+        hungerDrain = {label = "Hunger Drain on Auto-Collect", hover = "Enable/disable hunger drain when pouches auto-collect items."},
+        hungerDrainCount = {label = "Items per hunger point", hover = "The number of items to collect before draining one hunger point."},
+        healthDrain = {label = "Health Drain on Auto-Collect", hover = "Enable/disable health drain when pouches auto-collect items."},
+        healthDrainCount = {label = "Items per health point", hover = "The number of items to collect before draining one health point."},
         xPos = {label = "UI Horizontal Position", hover = "The horizontal position of the pouch window."},
         yPos = {label = "UI Vertical Position", hover = "The vertical position of the pouch window."},
         language = {label = "Language", hover = "Matches the game's language."},
@@ -53,6 +59,8 @@ local translation = {
         impGems = {label = "冰魔法袋子蓝宝石", hover = "制作冰魔法袋子所需的蓝宝石数量。"},
         autoCollect = {label = "启用自动收集", hover = "启用/禁用所有袋子的自动收集功能。"},
         collectInterval = {label = "收集间隔", hover = "袋子收集战利品的间隔时间（秒）。"},
+        sanityDrain = {label = "自动收集时消耗理智", hover = "启用/禁用袋子自动收集物品时消耗理智。"},
+        sanityDrainCount = {label = "理智消耗量", hover = "每收集多少物品消耗一点理智。"},
         xPos = {label = "UI水平位置", hover = "袋子窗口的水平位置。"},
         yPos = {label = "UI垂直位置", hover = "袋子窗口的垂直位置。"},
         language = {label = "语言", hover = "匹配游戏语言。"},
@@ -116,12 +124,12 @@ local tech = {} for k=1,7,1 do tech[k] = setTech(k) end
 local size = {} for k=1,5,1 do size[k] = setSize(k) end
 local ingredient = {} for k=1,20,1 do ingredient[k] = setCount(k) end
 local count = {} for k=1,11,1 do count[k] = setCount(k-6) end
+local drainCount = {} for k=1,30,1 do drainCount[k] = setCount(k) end
 local toggle = {{description = S.enabled, data = true}, {description = S.disabled, data = false}}
 local interval = {} for k=1,10,1 do interval[k] = setCount(k/10) end
 local position = {} for k=1,41,1 do position[k] = setCount(k*25-525) end
 local spoilage = {} for k=1,5,1 do spoilage[k] = setSpoilage(k) end
 
--- Store detected locale for modmain.lua (always uses game language)
 local localeOptions = {
     {description = lang_key == "zh" and "中文" or "English", data = lang_key},
 }
@@ -142,6 +150,12 @@ configuration_options = {
     {name = "cfgIMPGems", label = S.impGems.label, options = ingredient, default = 10, hover = S.impGems.hover},
     {name = "cfgAutoCollectToggle", label = S.autoCollect.label, options = toggle, default = false, hover = S.autoCollect.hover},
     {name = "cfgAutoCollectInterval", label = S.collectInterval.label, options = interval, default = .3, hover = S.collectInterval.hover},
+    {name = "cfgSanityDrainToggle", label = S.sanityDrain.label, options = toggle, default = true, hover = S.sanityDrain.hover},
+    {name = "cfgSanityDrainCount", label = S.sanityDrainCount.label, options = drainCount, default = 5, hover = S.sanityDrainCount.hover},
+    {name = "cfgHungerDrainToggle", label = S.hungerDrain.label, options = toggle, default = false, hover = S.hungerDrain.hover},
+    {name = "cfgHungerDrainCount", label = S.hungerDrainCount.label, options = drainCount, default = 5, hover = S.hungerDrainCount.hover},
+    {name = "cfgHealthDrainToggle", label = S.healthDrain.label, options = toggle, default = false, hover = S.healthDrain.hover},
+    {name = "cfgHealthDrainCount", label = S.healthDrainCount.label, options = drainCount, default = 5, hover = S.healthDrainCount.hover},
     {name = "cfgXPos", label = S.xPos.label, options = position, default = 0, hover = S.xPos.hover},
-    {name = "cfgYPos", label = S.yPos.label, options = position, default = 100, hover = S.yPos.hover},
+    {name = "cfgYPos", label = S.yPos.label, options = position, default = -250, hover = S.yPos.hover},
 }

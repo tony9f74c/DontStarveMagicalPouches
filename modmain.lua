@@ -194,10 +194,20 @@ for k, v in pairs(params) do containers.MAXITEMSLOTS = math.max(containers.MAXIT
 -- AUTO-COLLECT --
 
 if acEnabled then
-
-    -- function to search for valid items
     local interval = getConfig("cfgAutoCollectInterval")
+    local cfgSanityDrainEnabled = getConfig("cfgSanityDrainToggle")
+    local cfgSanityDrainCount = getConfig("cfgSanityDrainCount")
+    local cfgHungerDrainEnabled = getConfig("cfgHungerDrainToggle")
+    local cfgHungerDrainCount = getConfig("cfgHungerDrainCount")
+    local cfgHealthDrainEnabled = getConfig("cfgHealthDrainToggle")
+    local cfgHealthDrainCount = getConfig("cfgHealthDrainCount")
+
+    -- Function to search for valid items
     local function searchForItem(inst)
+        if not GLOBAL.TheWorld.ismastersim then
+            return
+        end
+
         local item = FindEntity(inst, 2, function(item) 
             return item.components.inventoryitem and 
             item.components.inventoryitem.canbepickedup and
@@ -205,6 +215,7 @@ if acEnabled then
         end)
         if item and inst.components.container:Has(item.prefab, 1) then -- if found item exists in the pouch
             local given = 0
+            local itemCollected = false
             if item.components.stackable then
                 local canBeStacked = inst.components.container:FindItem(function(existingItem)
                     return (existingItem.prefab == item.prefab and not existingItem.components.stackable:IsFull())
@@ -212,28 +223,69 @@ if acEnabled then
                 if canBeStacked then
                     inst.components.container:GiveItem(item)
                     given = 1
+                    itemCollected = true
                 end
             end
             if not inst.components.container:IsFull() and given == 0 then -- else if stack is full but the pouch isn't
                 inst.components.container:GiveItem(item)
+                itemCollected = true
+            end
+            -- Drain sanity/hunger/health
+            if itemCollected then
+                local player = inst.components.inventoryitem.owner
+                if player then
+                    if cfgSanityDrainEnabled and cfgSanityDrainCount > 0 and player.components.sanity then
+                        inst.sanityDrainCounter = (inst.sanityDrainCounter or 0) + 1
+                        if inst.sanityDrainCounter >= cfgSanityDrainCount then
+                            player.components.sanity:DoDelta(-1)
+                            inst.sanityDrainCounter = 0
+                        end
+                    end
+                    if cfgHungerDrainEnabled and cfgHungerDrainCount > 0 and player.components.hunger then
+                        inst.hungerDrainCounter = (inst.hungerDrainCounter or 0) + 1
+                        if inst.hungerDrainCounter >= cfgHungerDrainCount then
+                            player.components.hunger:DoDelta(-1)
+                            inst.hungerDrainCounter = 0
+                        end
+                    end
+                    if cfgHealthDrainEnabled and cfgHealthDrainCount > 0 and player.components.health then
+                        inst.healthDrainCounter = (inst.healthDrainCounter or 0) + 1
+                        if inst.healthDrainCounter >= cfgHealthDrainCount then
+                            player.components.health:DoDelta(-1)
+                            inst.healthDrainCounter = 0
+                        end
+                    end
+                end
             end
         end
     end
 
-    -- function to toggle auto-collect on/off
+    -- Function to toggle auto-collect on/off
     local function buttonToggle(player, inst)
+        if not GLOBAL.TheWorld.ismastersim then
+            return
+        end
         if not inst.autoCollectToggle then
-            inst:DoPeriodicTask(interval, searchForItem)
+            if not inst.autoCollectTask then
+                inst.autoCollectTask = inst:DoPeriodicTask(interval, function() searchForItem(inst) end)
+            end
             inst.autoCollectToggle = true
-            player.components.talker:Say(onText)
+            if player and player.components.talker then
+                player.components.talker:Say(onText)
+            end
         else
-            inst:CancelAllPendingTasks()
+            if inst.autoCollectTask then
+                inst.autoCollectTask:Cancel()
+                inst.autoCollectTask = nil
+            end
             inst.autoCollectToggle = false
-            player.components.talker:Say(offText)
+            if player and player.components.talker then
+                player.components.talker:Say(offText)
+            end
         end
     end
 
-    -- widget button function for MP
+    -- Widget button function for MP
     function params.magicpouch.widget.buttoninfo.fn(inst)
         if GLOBAL.TheWorld.ismastersim then
             buttonToggle(inst.components.container.opener, inst)
@@ -242,7 +294,7 @@ if acEnabled then
         end
     end
     AddModRPCHandler("MagicalPouches", "MPButtonToggle", buttonToggle)
-    -- widget button functions for IMP
+    -- Widget button functions for IMP
     function params.icepouch.widget.buttoninfo.fn(inst)
         if GLOBAL.TheWorld.ismastersim then
             buttonToggle(inst.components.container.opener, inst)

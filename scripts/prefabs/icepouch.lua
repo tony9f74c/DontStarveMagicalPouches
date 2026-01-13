@@ -19,6 +19,20 @@ local function onclose(inst)
     inst.SoundEmitter:PlaySound("dontstarve/wilson/backpack_close", "open")
 end
 
+local function OnSave(inst, data)
+    data.sanityDrainCounter = inst.sanityDrainCounter or 0
+    data.hungerDrainCounter = inst.hungerDrainCounter or 0
+    data.healthDrainCounter = inst.healthDrainCounter or 0
+end
+
+local function OnLoad(inst, data)
+    if data ~= nil then
+        inst.sanityDrainCounter = data.sanityDrainCounter or 0
+        inst.hungerDrainCounter = data.hungerDrainCounter or 0
+        inst.healthDrainCounter = data.healthDrainCounter or 0
+    end
+end
+
 local function fn(Sim)
     local inst = CreateEntity()
     inst.entity:AddTransform()
@@ -53,6 +67,13 @@ local function fn(Sim)
     inst.components.container:WidgetSetup("icepouch")
     inst.components.container.onopenfn = onopen
     inst.components.container.onclosefn = onclose
+
+    inst.sanityDrainCounter = 0
+    inst.hungerDrainCounter = 0
+    inst.healthDrainCounter = 0
+
+    inst.OnSave = OnSave
+    inst.OnLoad = OnLoad
 
     return inst
 end
