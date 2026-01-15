@@ -61,6 +61,10 @@ local translation = {
         collectInterval = {label = "收集间隔", hover = "袋子收集战利品的间隔时间（秒）。"},
         sanityDrain = {label = "自动收集时消耗理智", hover = "启用/禁用袋子自动收集物品时消耗理智。"},
         sanityDrainCount = {label = "理智消耗量", hover = "每收集多少物品消耗一点理智。"},
+        hungerDrain = {label = "自动收集时消耗饥饿值", hover = "启用/禁用袋子自动收集物品时消耗饥饿值。"},
+        hungerDrainCount = {label = "饥饿值消耗量", hover = "每收集多少物品消耗一点饥饿值。"},
+        healthDrain = {label = "自动收集时消耗生命值", hover = "启用/禁用袋子自动收集物品时消耗生命值。"},
+        healthDrainCount = {label = "生命值消耗量", hover = "每收集多少物品消耗一点生命值。"},
         xPos = {label = "UI水平位置", hover = "袋子窗口的水平位置。"},
         yPos = {label = "UI垂直位置", hover = "袋子窗口的垂直位置。"},
         language = {label = "语言", hover = "匹配游戏语言。"},
@@ -83,7 +87,7 @@ local S = translation[lang_key] or translation.en
 name = S.name
 description = S.description
 author = "Tony" -- https://steamcommunity.com/profiles/76561198002269576
-version = "260114"
+version = "260115"
 forumthread = ""
 api_version = 10
 all_clients_require_mod = true
