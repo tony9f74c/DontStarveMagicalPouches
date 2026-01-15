@@ -39,6 +39,8 @@ All features are configurable in the mod settings.
 
 <b>UI Horizontal/Vertical Position</b>: UI offset positions.
 
+<b>Infinite Stack Slots</b>: When enabled, pouch slots accept infinite stack sizes.
+
 <h1>Notes</h1>
 
 The pouches are crafted at the Shadow Manipulator by default.

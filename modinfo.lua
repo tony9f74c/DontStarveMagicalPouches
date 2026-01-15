@@ -24,6 +24,7 @@ local translation = {
         impWeb = {label = "IMP Spider Web", hover = "The amount of Web required to craft the Icy Magical Pouch."},
         impGems = {label = "IMP Blue Gem", hover = "The amount of Blue Gems required to craft the Icy Magical Pouch."},
         autoCollect = {label = "Enable Auto-Collect", hover = "Enable/disable the auto-collect feature for all pouches."},
+        infiniteStacks = {label = "Infinite Stacks", hover = "Enable infinite stack size for pouch slots."},
         collectInterval = {label = "Collect Interval", hover = "The interval in seconds at which the pouches collect loot."},
         sanityDrain = {label = "Sanity Drain on Auto-Collect", hover = "Enable/disable sanity drain when pouches auto-collect items."},
         sanityDrainCount = {label = "Items per sanity point", hover = "The number of items to collect before draining one sanity point."},
@@ -58,6 +59,7 @@ local translation = {
         impWeb = {label = "冰魔法袋子蜘蛛网", hover = "制作冰魔法袋子所需的蜘蛛网数量。"},
         impGems = {label = "冰魔法袋子蓝宝石", hover = "制作冰魔法袋子所需的蓝宝石数量。"},
         autoCollect = {label = "启用自动收集", hover = "启用/禁用所有袋子的自动收集功能。"},
+        infiniteStacks = {label = "无限堆栈", hover = "为袋槽启用无限堆叠大小。"},
         collectInterval = {label = "收集间隔", hover = "袋子收集战利品的间隔时间（秒）。"},
         sanityDrain = {label = "自动收集时消耗理智", hover = "启用/禁用袋子自动收集物品时消耗理智。"},
         sanityDrainCount = {label = "理智消耗量", hover = "每收集多少物品消耗一点理智。"},
@@ -87,7 +89,7 @@ local S = translation[lang_key] or translation.en
 name = S.name
 description = S.description
 author = "Tony" -- https://steamcommunity.com/profiles/76561198002269576
-version = "260115"
+version = "260115b"
 forumthread = ""
 api_version = 10
 all_clients_require_mod = true
@@ -152,6 +154,7 @@ configuration_options = {
     {name = "cfgIMPRope", label = S.impRope.label, options = ingredient, default = 1, hover = S.impRope.hover},
     {name = "cfgIMPWeb", label = S.impWeb.label, options = ingredient, default = 15, hover = S.impWeb.hover},
     {name = "cfgIMPGems", label = S.impGems.label, options = ingredient, default = 10, hover = S.impGems.hover},
+    {name = "cfgInfiniteStacks", label = S.infiniteStacks.label, options = toggle, default = false, hover = S.infiniteStacks.hover},
     {name = "cfgAutoCollectToggle", label = S.autoCollect.label, options = toggle, default = false, hover = S.autoCollect.hover},
     {name = "cfgAutoCollectInterval", label = S.collectInterval.label, options = interval, default = .3, hover = S.collectInterval.hover},
     {name = "cfgSanityDrainToggle", label = S.sanityDrain.label, options = toggle, default = true, hover = S.sanityDrain.hover},

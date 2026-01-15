@@ -4,6 +4,9 @@ local assets = {
     Asset("IMAGE", "images/inventoryimages/magicpouch.tex"),
 }
 
+local getConfig = GetModConfigData
+local infiniteStacks = getConfig("cfgInfiniteStacks", "workshop-2709414303") or getConfig("cfgInfiniteStacks", "DontStarveMagicalPouches")
+
 local function ondropped(inst, owner)
     inst.components.container:Close(owner)
 end
@@ -60,6 +63,9 @@ local function fn(Sim)
     inst.components.container:WidgetSetup("magicpouch")
     inst.components.container.onopenfn = onopen
     inst.components.container.onclosefn = onclose
+    if infiniteStacks then
+        inst.components.container:EnableInfiniteStackSize(true)
+    end
 
     inst.sanityDrainCounter = 0
     inst.hungerDrainCounter = 0

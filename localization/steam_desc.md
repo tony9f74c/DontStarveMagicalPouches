@@ -19,6 +19,7 @@ All features are configurable in the mod settings.
 - [b]Collect Interval[/b]: The auto-collection interval in seconds.
 - [b]Sanity/Hunger/Health Drain on Auto-Collect[/b]: Enable/disable stat drain when pouches auto-collect items, and how many items per stat point.
 - [b]UI Horizontal/Vertical Position[/b]: UI offset positions.
+- [b]Infinite Stack Slots[/b]: When enabled, pouch slots accept infinite stack sizes.
 
 [h1]Github:[/h1] https://github.com/tony9f74c/DontStarveMagicalPouches
 

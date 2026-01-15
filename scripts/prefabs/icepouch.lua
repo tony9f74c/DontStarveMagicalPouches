@@ -1,5 +1,6 @@
 local getConfig = GetModConfigData
 local perishMult = getConfig("cfgIMPPerishMult", "workshop-2709414303") or getConfig("cfgIMPPerishMult", "DontStarveMagicalPouches")
+local infiniteStacks = getConfig("cfgInfiniteStacks", "workshop-2709414303") or getConfig("cfgInfiniteStacks", "DontStarveMagicalPouches")
 
 local assets = {
     Asset("ANIM", "anim/icepouch.zip"),
@@ -67,6 +68,9 @@ local function fn(Sim)
     inst.components.container:WidgetSetup("icepouch")
     inst.components.container.onopenfn = onopen
     inst.components.container.onclosefn = onclose
+    if infiniteStacks then
+        inst.components.container:EnableInfiniteStackSize(true)
+    end
 
     inst.sanityDrainCounter = 0
     inst.hungerDrainCounter = 0
