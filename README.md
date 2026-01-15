@@ -39,7 +39,11 @@ All features are configurable in the mod settings.
 
 <b>UI Horizontal/Vertical Position</b>: UI offset positions.
 
-<b>Infinite Stack Slots</b>: When enabled, pouch slots accept infinite stack sizes.
+<b>Infinite Stacks</b>: Enable infinite stack size for pouch slots.
+
+<b>Add MP to Starting Items</b>: Adds the Magical Pouch to all characters' starting items.
+
+<b>Add IMP to Starting Items</b>: Adds the Icy Magical Pouch to all characters' starting items.
 
 <h1>Notes</h1>
 

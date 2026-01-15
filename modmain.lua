@@ -73,6 +73,22 @@ else
     STRINGS.CHARACTERS.GENERIC.DESCRIBE.ICEPOUCH = "A Magical Pouch that can keep food fresh forever!"
 end
 
+-- STARTING ITEMS --
+
+local addMagicPouchToStartingItems = getConfig("cfgAddToStartingItems")
+if addMagicPouchToStartingItems then
+    for character, items in pairs(GLOBAL.TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT) do
+        table.insert(items, "magicpouch")
+    end
+end
+
+local addIMPToStartingItems = getConfig("cfgAddIMPToStartingItems")
+if addIMPToStartingItems then
+    for character, items in pairs(GLOBAL.TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT) do
+        table.insert(items, "icepouch")
+    end
+end
+
 -- RECIPES --
 
 local isIMPEnabled = getConfig("cfgIMPRecipeToggle")

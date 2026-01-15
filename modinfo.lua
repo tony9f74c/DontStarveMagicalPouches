@@ -35,6 +35,8 @@ local translation = {
         xPos = {label = "UI Horizontal Position", hover = "The horizontal position of the pouch window."},
         yPos = {label = "UI Vertical Position", hover = "The vertical position of the pouch window."},
         language = {label = "Language", hover = "Matches the game's language."},
+        addMPToStarting = {label = "Add MP to Starting Items", hover = "Enable/disable adding Magical Pouch to all characters' starting items."},
+        addIMPToStarting = {label = "Add IMP to Starting Items", hover = "Enable/disable adding Icy Magical Pouch to all characters' starting items."},
     },
     zh = {
         name = "魔法袋子",
@@ -70,6 +72,8 @@ local translation = {
         xPos = {label = "UI水平位置", hover = "袋子窗口的水平位置。"},
         yPos = {label = "UI垂直位置", hover = "袋子窗口的垂直位置。"},
         language = {label = "语言", hover = "匹配游戏语言。"},
+        addMPToStarting = {label = "添加MP到初始物品", hover = "启用/禁用将魔法袋子添加到所有角色的初始物品。"},
+        addIMPToStarting = {label = "添加IMP到初始物品", hover = "启用/禁用将冰魔法袋子添加到所有角色的初始物品。"},
     },
 }
 
@@ -89,7 +93,7 @@ local S = translation[lang_key] or translation.en
 name = S.name
 description = S.description
 author = "Tony" -- https://steamcommunity.com/profiles/76561198002269576
-version = "260115b"
+version = "260115c"
 forumthread = ""
 api_version = 10
 all_clients_require_mod = true
@@ -165,4 +169,6 @@ configuration_options = {
     {name = "cfgHealthDrainCount", label = S.healthDrainCount.label, options = drainCount, default = 5, hover = S.healthDrainCount.hover},
     {name = "cfgXPos", label = S.xPos.label, options = position, default = 0, hover = S.xPos.hover},
     {name = "cfgYPos", label = S.yPos.label, options = position, default = -250, hover = S.yPos.hover},
+    {name = "cfgAddToStartingItems", label = S.addMPToStarting.label, options = toggle, default = false, hover = S.addMPToStarting.hover},
+    {name = "cfgAddIMPToStartingItems", label = S.addIMPToStarting.label, options = toggle, default = false, hover = S.addIMPToStarting.hover},
 }
