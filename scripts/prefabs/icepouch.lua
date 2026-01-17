@@ -1,6 +1,6 @@
 local getConfig = GetModConfigData
-local perishMult = getConfig("cfgIMPPerishMult", "workshop-2709414303") or getConfig("cfgIMPPerishMult", "DontStarveMagicalPouches")
-local infiniteStacks = getConfig("cfgInfiniteStacks", "workshop-2709414303") or getConfig("cfgInfiniteStacks", "DontStarveMagicalPouches")
+local perishMult = getConfig("cfgIMPPerishMult", "workshop-3646499172") or getConfig("cfgIMPPerishMult", "DontStarveMagicalPouches")
+local infiniteStacks = getConfig("cfgInfiniteStacks", "workshop-3646499172") or getConfig("cfgInfiniteStacks", "DontStarveMagicalPouches")
 
 local assets = {
     Asset("ANIM", "anim/icepouch.zip"),

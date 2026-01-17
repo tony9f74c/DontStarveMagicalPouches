@@ -5,7 +5,7 @@ local assets = {
 }
 
 local getConfig = GetModConfigData
-local infiniteStacks = getConfig("cfgInfiniteStacks", "workshop-2709414303") or getConfig("cfgInfiniteStacks", "DontStarveMagicalPouches")
+local infiniteStacks = getConfig("cfgInfiniteStacks", "workshop-3646499172") or getConfig("cfgInfiniteStacks", "DontStarveMagicalPouches")
 
 local function ondropped(inst, owner)
     inst.components.container:Close(owner)
